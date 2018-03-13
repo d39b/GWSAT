@@ -514,13 +514,13 @@ long_t run_on_file(std::string filename, long_t max_iterations, long_t max_resta
 }
 
 void print_help_message() {
-    std::cout << "Usage:\n\n";
-    std::cout << "gwsat filename [OPTIONS]\n";
-    std::cout << "Additional options:\n\n";
+    std::cout << "Usage:\n";
+    std::cout << "gwsat filename [OPTIONS]\n\n";
+    std::cout << "Additional options:\n";
     std::cout << "-mi NUM       set NUM as the maximum number of iterations\n";
     std::cout << "-mr NUM       set NUM as the maximum number of restarts\n";
     std::cout << "-n NUM        set NUM as the noise parameter, NUM should be a number between 0 and 100\n";
-    std::cout << "-s NUM	set NUM as the initial seed of the random number generator\n\n";
+    std::cout << "-s NUM        set NUM as the initial seed of the random number generator\n\n";
     std::cout << "Default number of iterations is 2^63-1\n";
     std::cout << "Default number of restarts is 1\n";
     std::cout << "Default noise parameter is 60\n";
@@ -533,13 +533,13 @@ void print_help_message() {
 int main(int argc, char* argv[]) {
 	
 	long_t rand_prob = 60;
-        long_t max_iterations = 1;
+    long_t max_iterations = 1;
 	max_iterations = ~(max_iterations << 63);
 	long_t max_restarts = 1;
 	long_t rng_seed = -1;	
         
         if(argc < 2) {
-	    std::cout << "Error: missing arguments\n\n";
+	        std::cout << "Error: missing arguments\n\n";
             print_help_message();
         } else {
             std::string filename(argv[1]);
@@ -549,13 +549,13 @@ int main(int argc, char* argv[]) {
                 std::string option_arg(argv[arg_index+1]);
                     
                 long_t num;
-		try {
-			num = std::stoll(option_arg);                    
-    		} catch(std::exception& e) {
-                    	std::cout << "Invalid argument " << option_arg << ", positive integer expected\n\n";
-			print_help_message();
-			return 0;	
-		}
+		        try {
+                        num = std::stoll(option_arg);                    
+    	        } catch(std::exception& e) {
+           	            std::cout << "Invalid argument " << option_arg << ", positive integer expected\n\n";
+			            print_help_message();
+			            return 0;	
+		        }
 
                 if(option == "-mi") {
                 	max_iterations = num;            
@@ -564,8 +564,10 @@ int main(int argc, char* argv[]) {
                 } else if(option == "-n") {
                         rand_prob = num;
                 } else if(option == "-s") {
-			rng_seed = num;	
-		} else {
+			            rng_seed = num;	
+
+		        } else {
+                        std::cout << "Invalid option " << option << "\n\n";
                         print_help_message();
                         return 0;
                 }
